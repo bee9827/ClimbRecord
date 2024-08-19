@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,19 +20,20 @@ public class RecordHomeRepositoryImpl implements RecordHomeRepository {
     @Override
     public Map<LocalDate, List<RecordHomeDto>> findAllbyIdAndClimbingDate(Integer id, LocalDate localDate) {
         QRecord record = QRecord.record;
-        query.select(
+        return query.select(
                 Projections.fields(
                         RecordHomeDto.class,
+                        record.climbingDate,
                         record.gym.name,
                         record.difficulty.color,
                         record.difficulty.maximum
                 ))
-
                 .from(record)
                 .where(record.member.id.eq(id))
                 .where(record.climbingDate.between(
-                        LocalDate.of(localDate.getYear( ), localDate.getMonth(), 0),
+                        LocalDate.of(localDate.getYear( ), localDate.getMonth(), 1),
                         LocalDate.of(localDate.getYear( ), localDate.getMonth(), localDate.lengthOfMonth())))
-                .fetch();
+                .fetch()
+                .stream().collect(Collectors.groupingBy(RecordHomeDto::getClimbingDate));
     }
 }
