@@ -25,9 +25,6 @@ public class GymDifficulty {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    @OneToMany
-    private List<Record> record;
-
     private String color;
     private String minimum;
     private String maximum;
