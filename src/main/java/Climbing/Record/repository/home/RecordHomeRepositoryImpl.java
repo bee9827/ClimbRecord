@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,18 +17,21 @@ public class RecordHomeRepositoryImpl implements RecordHomeRepository {
     private final JPAQueryFactory query;
 
     @Override
-    public List<RecordHomeDto> findAllbyIdAndClimbingDate(Integer id, LocalDate localDate) {
+    public Map<LocalDate, List<RecordHomeDto>> findAllbyIdAndClimbingDate(Integer id, LocalDate localDate) {
         QRecord record = QRecord.record;
-        return query.select(
+        query.select(
                 Projections.fields(
                         RecordHomeDto.class,
                         record.gym.name,
                         record.difficulty.color,
                         record.difficulty.maximum
                 ))
+
                 .from(record)
                 .where(record.member.id.eq(id))
-                .where(record.climbingDate.eq(localDate))
+                .where(record.climbingDate.between(
+                        LocalDate.of(localDate.getYear( ), localDate.getMonth(), 0),
+                        LocalDate.of(localDate.getYear( ), localDate.getMonth(), localDate.lengthOfMonth())))
                 .fetch();
     }
 }
