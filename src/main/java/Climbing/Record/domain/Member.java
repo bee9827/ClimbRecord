@@ -1,4 +1,4 @@
-package domain;
+package Climbing.Record.domain;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,28 +20,21 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue
-    @Column(
-            name = "member_id"
-    )
+    @Column(name = "member_id")
     private Integer id;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Link> links = new ArrayList( );
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+    private List<FavoriteGym> favoriteGyms = new ArrayList( );
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Record> records = new ArrayList( );
+
     private String name;
     private String introduction;
     private String length;
     private String armLength;
     private String startDate;
-    @OneToMany(
-            mappedBy = "member",
-            cascade = {CascadeType.ALL}
-    )
-    private List<Link> links = new ArrayList( );
-    @OneToMany(
-            mappedBy = "member",
-            cascade = {CascadeType.ALL}
-    )
-    private List<FavoriteGym> favoriteGyms = new ArrayList( );
-    @OneToMany(
-            mappedBy = "member",
-            cascade = {CascadeType.ALL}
-    )
-    private List<Record> records = new ArrayList( );
 }

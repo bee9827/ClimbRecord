@@ -1,4 +1,4 @@
-package domain;
+package Climbing.Record.domain;
 
 
 import jakarta.persistence.CascadeType;
@@ -22,20 +22,14 @@ import java.util.List;
 public class Gym {
     @Id
     @GeneratedValue
-    @Column(
-            name = "gym_id"
-    )
+    @Column(name = "gym_id")
     private Integer id;
     private String name;
-    @OneToMany(
-            mappedBy = "gym",
-            cascade = {CascadeType.ALL}
-    )
+
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL)
     private List<GymDifficulty> gymDifficulties = new ArrayList();
-    @OneToMany(
-            mappedBy = "gym",
-            cascade = {CascadeType.ALL}
-    )
+
+    @OneToMany(mappedBy = "gym",cascade = {CascadeType.ALL})
     private List<Record> records = new ArrayList();
 
 }
