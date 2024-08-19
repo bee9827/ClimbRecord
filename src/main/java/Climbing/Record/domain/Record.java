@@ -2,6 +2,7 @@ package Climbing.Record.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -34,4 +35,14 @@ public class Record {
     @Embedded
     private ClimbingStatus climbingStatus;
 
+    @Builder
+    public Record(Member member, Gym gym, GymDifficulty difficulty, String body, RecordStatus status, LocalDate climbingDate, ClimbingStatus climbingStatus) {
+        this.member = member;
+        this.gym = gym;
+        this.difficulty = difficulty;
+        this.body = body;
+        this.status = status;
+        this.climbingDate = climbingDate;
+        this.climbingStatus = climbingStatus;
+    }
 }
