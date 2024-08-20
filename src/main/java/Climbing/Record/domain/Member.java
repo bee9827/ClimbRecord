@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Member {
     @Id
     @GeneratedValue
@@ -24,7 +26,7 @@ public class Member {
     private List<Link> links = new ArrayList( );
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<FavoriteGym> favoriteGyms = new ArrayList( );
+    private List<MemberGym> memberGyms = new ArrayList( );
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Record> records = new ArrayList( );
@@ -33,5 +35,10 @@ public class Member {
     private String introduction;
     private String length;
     private String armLength;
-    private String startDate;
+    private LocalDate startDate;
+
+    public void addRecord(List<Record> records){
+        this.records.addAll(records);
+    }
+
 }

@@ -27,7 +27,7 @@ public class Gym {
     private String name;
 
     @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL)
-    private List<GymDifficulty> gymDifficulties = new ArrayList();
+    private List<Difficulty> gymDifficulties = new ArrayList();
 
     @OneToMany(mappedBy = "gym",cascade = {CascadeType.ALL})
     private List<Record> records = new ArrayList();

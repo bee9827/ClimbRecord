@@ -6,10 +6,10 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class FavoriteGym {
+public class MemberGym {
     @Id
     @GeneratedValue
-    @Column(name = "favoriteGym_id")
+    @Column(name = "memberGym_id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)

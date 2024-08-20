@@ -8,16 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GymDifficulty {
+public class Difficulty {
     @Id
     @GeneratedValue
-    @Column(name = "gymDifficulty_id")
+    @Column(name = "difficulty_id")
     private Integer id;
 
     @JsonIgnore

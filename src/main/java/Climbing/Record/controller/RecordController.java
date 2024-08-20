@@ -1,11 +1,11 @@
 package Climbing.Record.controller;
 
-import Climbing.Record.repository.RecordRepository;
 import Climbing.Record.repository.home.RecordHomeDto;
+import Climbing.Record.service.RecordService;
+import Climbing.Record.service.dto.RecordRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,12 +14,24 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class RecordController {
-    private final RecordRepository recordRepository;
+    private final RecordService recordService;
 
+    @PostMapping("api/record")
+    public ResponseEntity<Integer> createRecord(@RequestParam Integer member_id ,
+                                                @RequestParam Integer gym_id,
+                                                @RequestParam Integer difficulty_id,
+                                                @RequestBody RecordRequestDto recordRequestDto){
+        return ResponseEntity.ok(recordService.create(member_id, gym_id, difficulty_id, recordRequestDto));
+    }
+    @DeleteMapping("api/record/{record_id}")
+    public ResponseEntity<Void> deleteRecord(@PathVariable Integer record_id){
+        recordService.delete(record_id);
+        return ResponseEntity.ok().build();
+    }
     @GetMapping("api/records")
     public Map<LocalDate, List<RecordHomeDto>> getRecordHomeList(@RequestParam Integer id,
                                                                  @RequestParam LocalDate localDate){
-        return recordRepository.findAllbyIdAndClimbingDate(id,localDate);
+        return recordService.getHomeRecordList(id,localDate);
     }
 
 }

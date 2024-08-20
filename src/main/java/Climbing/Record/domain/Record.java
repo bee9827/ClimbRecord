@@ -2,13 +2,14 @@ package Climbing.Record.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Record {
     @Id
     @GeneratedValue
@@ -26,8 +27,8 @@ public class Record {
     private Gym gym;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gymDifficulty_id")
-    private GymDifficulty difficulty;
+    @JoinColumn(name = "difficulty_id")
+    private Difficulty difficulty;
 
     private String body;
     private RecordStatus status;
@@ -36,13 +37,22 @@ public class Record {
     private ClimbingStatus climbingStatus;
 
     @Builder
-    public Record(Member member, Gym gym, GymDifficulty difficulty, String body, RecordStatus status, LocalDate climbingDate, ClimbingStatus climbingStatus) {
-        this.member = member;
-        this.gym = gym;
-        this.difficulty = difficulty;
+    public Record(String body, RecordStatus status, LocalDate climbingDate, ClimbingStatus climbingStatus) {
         this.body = body;
         this.status = status;
         this.climbingDate = climbingDate;
         this.climbingStatus = climbingStatus;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 }
