@@ -17,11 +17,8 @@ public class RecordController {
     private final RecordService recordService;
 
     @PostMapping("api/record")
-    public ResponseEntity<Integer> createRecord(@RequestParam Integer member_id ,
-                                                @RequestParam Integer gym_id,
-                                                @RequestParam Integer difficulty_id,
-                                                @RequestBody RecordRequestDto recordRequestDto){
-        return ResponseEntity.ok(recordService.create(member_id, gym_id, difficulty_id, recordRequestDto));
+    public ResponseEntity<Integer> createRecord(@RequestBody RecordRequestDto recordRequestDto){
+        return ResponseEntity.ok(recordService.create(recordRequestDto));
     }
     @DeleteMapping("api/record/{record_id}")
     public ResponseEntity<Void> deleteRecord(@PathVariable Integer record_id){
@@ -29,9 +26,9 @@ public class RecordController {
         return ResponseEntity.ok().build();
     }
     @GetMapping("api/records")
-    public Map<LocalDate, List<RecordHomeDto>> getRecordHomeList(@RequestParam Integer id,
+    public Map<LocalDate, List<RecordHomeDto>> getRecordHomeList(@RequestParam Integer member_id,
                                                                  @RequestParam LocalDate localDate){
-        return recordService.getHomeRecordList(id,localDate);
+        return recordService.getHomeRecordList(member_id,localDate);
     }
 
 }

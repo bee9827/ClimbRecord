@@ -26,11 +26,11 @@ public class RecordService  {
     private final GymRepository gymRepository;
     private final GymDifficultyRepository difficultyRepository;
 
-    public Integer create(Integer member_id,Integer gym_id, Integer difficulty_id ,RecordRequestDto recordRequestDto){
+    public Integer create(RecordRequestDto recordRequestDto){
         Record record = recordRequestDto.toEntity();
-        record.setGym(gymRepository.findById(gym_id).get());
-        record.setDifficulty(difficultyRepository.findById(difficulty_id).get());
-        record.setMember(memberRepository.findById(member_id).get());
+        record.setGym(gymRepository.findById(recordRequestDto.getGym_id()).get());
+        record.setDifficulty(difficultyRepository.findById(recordRequestDto.getDifficulty_id()).get());
+        record.setMember(memberRepository.findById(recordRequestDto.getMember_id()).get());
 
         return recordRepository.save(record).getId();
     }

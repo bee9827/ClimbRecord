@@ -10,4 +10,5 @@ public class RecordHomeDto {
     private String color;
     private String maximum;
     private LocalDate climbingDate;
+
 }
