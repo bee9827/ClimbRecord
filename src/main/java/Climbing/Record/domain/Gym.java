@@ -1,6 +1,7 @@
 package Climbing.Record.domain;
 
 
+import Climbing.Record.service.dto.DifficultyRequestDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,5 +33,13 @@ public class Gym {
     @Builder
     public Gym(String name) {
         this.name = name;
+    }
+    public void addDifficulty(Difficulty difficulty){
+        difficulty.setGym(this);
+        this.difficulties.add(difficulty);
+    }
+    public void addDifficulties(List<Difficulty> difficulties){
+        difficulties.forEach(difficulty -> difficulty.setGym(this));
+        this.difficulties.addAll(difficulties);
     }
 }
