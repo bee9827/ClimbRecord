@@ -3,10 +3,7 @@ package Climbing.Record.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -26,4 +23,15 @@ public class Difficulty {
     private String color;
     private String minimum;
     private String maximum;
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
+    }
+
+    @Builder
+    public Difficulty(String color, String minimum, String maximum) {
+        this.color = color;
+        this.minimum = minimum;
+        this.maximum = maximum;
+    }
 }
