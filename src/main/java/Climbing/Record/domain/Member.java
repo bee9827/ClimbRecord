@@ -38,6 +38,7 @@ public class Member {
     private LocalDate startDate;
 
     public void addRecord(List<Record> records){
+        records.forEach(record -> record.setMember(this));
         this.records.addAll(records);
     }
 

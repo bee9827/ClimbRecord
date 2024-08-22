@@ -13,7 +13,7 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
-        default_batch_fetch_size: 1000
+        default_batch_fetch_size: 15
     defer-datasource-initialization: true
   sql:
     init:
