@@ -4,9 +4,11 @@ import Climbing.Record.domain.Member;
 import Climbing.Record.domain.Record;
 import Climbing.Record.repository.MemberRepository;
 import Climbing.Record.service.dto.MemberRequestDto;
+import Climbing.Record.repository.home.MemberHomeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class MemberService {
-    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository ;
 
     public Integer create(MemberRequestDto memberRequestDto){
         return memberRepository.save(memberRequestDto.toEntity()).getId();
@@ -26,5 +28,10 @@ public class MemberService {
         Member member = memberRepository.findById(member_id).get();
         member.addRecord(records);
     }
+
+    public List<MemberHomeDto> getMemberHomeDtos(int offset, int limit){
+        return memberRepository.findAllDto(offset,limit);
+    }
+    public MemberHomeDto getMemberHomeDto(Integer id){ return memberRepository.findDtoById(id);}
 
 }

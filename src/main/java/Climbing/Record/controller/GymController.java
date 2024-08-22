@@ -29,7 +29,7 @@ public class GymController {
         gymService.deleteGym(id);
         return ResponseEntity.ok(  ).build();
     }
-    @GetMapping("api/gym")
+    @GetMapping("api/gyms")
     public ResponseEntity<List<GymResponseDto>> getGymResponseList(){
         return ResponseEntity.ok(gymService.getResponseDtos());
     }

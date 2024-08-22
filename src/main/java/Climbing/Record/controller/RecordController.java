@@ -25,7 +25,7 @@ public class RecordController {
         recordService.delete(record_id);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("api/records")
+    @GetMapping("api/member/records")
     public Map<LocalDate, List<RecordHomeDto>> getRecordHomeList(@RequestParam Integer member_id,
                                                                  @RequestParam LocalDate localDate){
         return recordService.getHomeRecordList(member_id,localDate);
